@@ -79,7 +79,7 @@ for ( let i = 0; i < posts.length; i++) {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="${i}">
+                        <a class="like-button  js-like-button" data-postid="${i}"> 
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
@@ -102,9 +102,14 @@ for (let i = 0; i < posts.length; i++) {
 
     addLike[i].addEventListener("click", function() {
 
-        this.classList.add("like-button--liked");
-        likeCounter[i].innerHTML = posts[i].likes + 1;
- 
+        if (this.className.includes("like-button--liked")) {
+            this.classList.remove("like-button--liked")
+            likeCounter[i].innerHTML = posts[i].likes;
+            
+        } else {
+            this.classList.add("like-button--liked");
+            likeCounter[i].innerHTML = posts[i].likes + 1;
+        }
     });
 }
 
