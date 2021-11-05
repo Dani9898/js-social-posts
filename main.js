@@ -29,7 +29,6 @@ const posts = [
         "fotoProfilo": "https://unsplash.it/300/300?image=15",
         "data": "4 mesi fa",
         "testo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut diam nisl. Sed nec hendrerit augue, ac rutrum nisi.",
-        "immagine": "https://unsplash.it/600/300?image=171",
         "likes": 10
     },
     {
@@ -45,7 +44,6 @@ const posts = [
         "fotoProfilo": "https://unsplash.it/300/300?image=15",
         "data": "4 mesi fa",
         "testo": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut diam nisl. Sed nec hendrerit augue, ac rutrum nisi.",
-        "immagine": "https://unsplash.it/600/300?image=171",
         "likes": 10
     },{
         "nomeAutore": "Daniele Oliva",
@@ -96,14 +94,17 @@ for ( let i = 0; i < posts.length; i++) {
 }
 
 
-const likeButton = document.getElementsByClassName("js-like-button");
+const addLike = document.getElementsByClassName("js-like-button");
 const likeCounter = document.getElementsByClassName("js-likes-counter");
-console.log(likeButton);
+
 
 for (let i = 0; i < posts.length; i++) {
-    likeButton[i].addEventListener("click", function() {
+
+    addLike[i].addEventListener("click", function() {
+
         this.classList.add("like-button--liked");
         likeCounter[i].innerHTML = posts[i].likes + 1;
+ 
     });
 }
 
