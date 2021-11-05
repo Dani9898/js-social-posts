@@ -81,16 +81,29 @@ for ( let i = 0; i < posts.length; i++) {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                        <a class="like-button  js-like-button" href="#" data-postid="${i}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
+                        Piace a <b id="like-counter-${i}" class="js-likes-counter">${likes}</b> persone
                     </div>
                 </div> 
             </div>            
         </div>
     `
 }
+
+
+const likeButton = document.getElementsByClassName("js-like-button");
+const likeCounter = document.getElementsByClassName("js-likes-counter");
+console.log(likeButton);
+
+for (let i = 0; i < posts.length; i++) {
+    likeButton[i].addEventListener("click", function() {
+        this.classList.add("like-button--liked");
+        likeCounter[i].innerHTML = posts[i].likes + 1;
+    });
+}
+
