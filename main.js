@@ -55,44 +55,51 @@ const posts = [
     }
 ]
 
-for ( let i = 0; i < posts.length; i++) {
-    const singoloPost = posts[i];
-    const {nomeAutore, fotoProfilo, data, testo, immagine, likes} = singoloPost;
-
-    contenitore.innerHTML += `
-    <div class="post">
-            <div class="post__header">
-                <div class="post-meta">                    
-                    <div class="post-meta__icon">
-                        <img class="profile-pic" src="${fotoProfilo}" alt="${nomeAutore}">                    
+function stampa() {
+    let postTag = "";
+    for ( let i = 0; i < posts.length; i++) {
+        const singoloPost = posts[i];
+        const {nomeAutore, fotoProfilo, data, testo, immagine, likes} = singoloPost;
+    
+        postTag += `
+        <div class="post">
+                <div class="post__header">
+                    <div class="post-meta">                    
+                        <div class="post-meta__icon">
+                            <img class="profile-pic" src="${fotoProfilo}" alt="${nomeAutore}">                    
+                        </div>
+                        <div class="post-meta__data">
+                            <div class="post-meta__author">${nomeAutore}</div>
+                            <div class="post-meta__time">${data}</div>
+                        </div>                    
                     </div>
-                    <div class="post-meta__data">
-                        <div class="post-meta__author">${nomeAutore}</div>
-                        <div class="post-meta__time">${data}</div>
-                    </div>                    
                 </div>
+                <div class="post__text">${testo}</div>
+                <div class="post__image">
+                    <img src="${immagine}" alt="">
+                </div>
+                <div class="post__footer">
+                    <div class="likes js-likes">
+                        <div class="likes__cta">
+                            <a class="like-button  js-like-button" data-postid="${i}"> 
+                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                                <span class="like-button__label">Mi Piace</span>
+                            </a>
+                        </div>
+                        <div class="likes__counter">
+                            Piace a <b id="like-counter-${i}" class="js-likes-counter">${likes}</b> persone
+                        </div>
+                    </div> 
+                </div>            
             </div>
-            <div class="post__text">${testo}</div>
-            <div class="post__image">
-                <img src="${immagine}" alt="">
-            </div>
-            <div class="post__footer">
-                <div class="likes js-likes">
-                    <div class="likes__cta">
-                        <a class="like-button  js-like-button" data-postid="${i}"> 
-                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                            <span class="like-button__label">Mi Piace</span>
-                        </a>
-                    </div>
-                    <div class="likes__counter">
-                        Piace a <b id="like-counter-${i}" class="js-likes-counter">${likes}</b> persone
-                    </div>
-                </div> 
-            </div>            
-        </div>
-    `
+        `
+    }
+
+    contenitore.innerHTML = postTag;
+
 }
 
+stampa();
 
 const addLike = document.getElementsByClassName("js-like-button");
 const likeCounter = document.getElementsByClassName("js-likes-counter");
@@ -103,12 +110,14 @@ for (let i = 0; i < posts.length; i++) {
     addLike[i].addEventListener("click", function() {
 
         if (this.className.includes("like-button--liked")) {
-            this.classList.remove("like-button--liked")
+            posts[i].likes = posts[i].likes - 1;
             likeCounter[i].innerHTML = posts[i].likes;
-            
+            this.classList.remove("like-button--liked")
+
         } else {
+            posts[i].likes = posts[i].likes + 1;
+            likeCounter[i].innerHTML = posts[i].likes;
             this.classList.add("like-button--liked");
-            likeCounter[i].innerHTML = posts[i].likes + 1;
         }
     });
 }
